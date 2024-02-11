@@ -10,7 +10,7 @@ public class BlogAppApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BlogAppApplication.class, args);
-		System.out.println("Started ");
+		System.out.println("Started Spring Project");
 	}
 	
 	@Bean
