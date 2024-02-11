@@ -10,6 +10,9 @@ import java.util.stream.Stream;
 import com.blog.code.payloads.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.blog.code.entities.Category;
@@ -76,9 +79,11 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDto> getAllPost() {
+	public List<PostDto> getAllPost(Integer pageNumber,Integer pageSize) {
 
-		List<Post> allPost= postRepo.findAll();
+		Pageable p= PageRequest.of(pageNumber,pageSize);
+		Page<Post> pagePost= this.postRepo.findAll(p);
+		List<Post> allPost= pagePost.getContent();
 		List<PostDto> allPostDtos= allPost.stream().map((post) -> this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
 		return allPostDtos;
 	}
