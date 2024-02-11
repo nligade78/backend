@@ -1,6 +1,5 @@
 package com.blog.code.controllers;
 
-import com.blog.code.entities.Post;
 import com.blog.code.payloads.ApiResponse;
 import com.blog.code.payloads.PostResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,8 @@ import com.blog.code.payloads.PostDto;
 import com.blog.code.services.PostService;
 
 import java.util.List;
+
+import static com.blog.code.constants.AppConstants.*;
 
 @RestController
 @RequestMapping("/api/post")
@@ -58,10 +59,10 @@ public class PostController {
 
 	@GetMapping("/getAllPost")
 	public ResponseEntity<PostResponse> getAllPost(
-			@RequestParam(value="pageNumber",defaultValue="1",required=false) Integer pageNumber,
-			@RequestParam(value="pageSize",defaultValue="5",required=false)Integer pageSize,
-			@RequestParam(value="sortBy",defaultValue = "postId",required=false) String sortBy,
-			@RequestParam(value="sortDir",defaultValue = "asc",required=false) String sortDir
+			@RequestParam(value="pageNumber",defaultValue=PAGE_NUMBER,required=false) Integer pageNumber,
+			@RequestParam(value="pageSize",defaultValue=PAGE_SIZE,required=false)Integer pageSize,
+			@RequestParam(value="sortBy",defaultValue=SORT_BY,required=false) String sortBy,
+			@RequestParam(value="sortDir",defaultValue=SORT_DIR,required=false) String sortDir
 	)
 	{
 		PostResponse postResponse= this.postService.getAllPost(pageNumber - 1, pageSize,sortBy,sortDir);
