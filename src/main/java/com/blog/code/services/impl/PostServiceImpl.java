@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
+import com.blog.code.payloads.PostResponse;
 import com.blog.code.payloads.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,13 +80,23 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDto> getAllPost(Integer pageNumber,Integer pageSize) {
+	public PostResponse getAllPost(Integer pageNumber, Integer pageSize) {
 
 		Pageable p= PageRequest.of(pageNumber,pageSize);
 		Page<Post> pagePost= this.postRepo.findAll(p);
 		List<Post> allPost= pagePost.getContent();
 		List<PostDto> allPostDtos= allPost.stream().map((post) -> this.modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
-		return allPostDtos;
+
+		PostResponse postResponse=new PostResponse();
+		postResponse.setContent(allPostDtos);
+		postResponse.setPageNumber(pagePost.getNumber());
+		postResponse.setPageSize(pagePost.getSize());
+		postResponse.setTotalElement(pagePost.getTotalElements());
+
+		postResponse.setTotalElement(pagePost.getTotalPages());
+		postResponse.setLastPage(pagePost.isLast());
+
+		return postResponse;
 	}
 
 	@Override
