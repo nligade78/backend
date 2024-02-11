@@ -1,6 +1,5 @@
 package com.blog.code.services;
 
-import com.blog.code.entities.Post;
 import com.blog.code.payloads.PostDto;
 import java.util.List;
 
@@ -17,7 +16,8 @@ public interface PostService {
 	
 	//get all post
 	List<PostDto> getAllPost(Integer pageNumber,Integer pageSize);
-	
+
+
 	//get Single Post
 	PostDto getPostById(Integer postId);
 	

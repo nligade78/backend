@@ -61,7 +61,7 @@ public class PostController {
 			@RequestParam(value="pageSize",defaultValue="5",required=false)Integer pageSize
 	)
 	{
-		List<PostDto> allPost= this.postService.getAllPost(pageNumber,pageSize);
+		List<PostDto> allPost= this.postService.getAllPost(pageNumber-1,pageSize);
 		return new ResponseEntity<List<PostDto>>(allPost,HttpStatus.OK);
 	}
 
